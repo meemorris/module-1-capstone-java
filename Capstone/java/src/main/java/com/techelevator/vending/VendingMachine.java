@@ -12,7 +12,7 @@ import java.util.*;
 public class VendingMachine {
 
     private Map<String, Item> allItems = new LinkedHashMap<>();
-    private BigDecimal customerBalance = new BigDecimal(0);
+    private BigDecimal customerBalance = new BigDecimal("0.00");//create it from a string
     private String inventoryFile;
     private BigDecimal totalSales = new BigDecimal(0);
     private static DecimalFormat f = new DecimalFormat("#0.00");

@@ -2,6 +2,7 @@ package com.techelevator;
 
 import com.techelevator.vending.VendingMachine;
 import com.techelevator.util.VmLog;
+import com.techelevator.view.Menu;
 import com.techelevator.view.MenuDrivenCLI;
 
 import java.util.Scanner;
@@ -11,7 +12,7 @@ public class Application {
     private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
     private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
     private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-    private static final String MAIN_MENU_OPTION_SALES_REPORT = "";
+    private static final String MAIN_MENU_OPTION_SALES_REPORT = Menu.HIDDEN_OPTION; //static constant
     private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT, MAIN_MENU_OPTION_SALES_REPORT};
     private static final String PURCHASE_MENU_OPTION_DEPOSIT_MONEY = "Deposit Money";
     private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
@@ -21,14 +22,6 @@ public class Application {
     private final MenuDrivenCLI ui = new MenuDrivenCLI();
     private VendingMachine vm = new VendingMachine("inventory.txt");
     Scanner input = new Scanner(System.in);
-
-    public static String[] getMainMenuOptions() {
-        return MAIN_MENU_OPTIONS;
-    }
-
-    public static String[] getPurchaseMenuOptions() {
-        return PURCHASE_MENU_OPTIONS;
-    }
 
     public static void main(String[] args) {
         Application application = new Application();

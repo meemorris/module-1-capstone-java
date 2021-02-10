@@ -9,10 +9,11 @@ public abstract class Item implements Purchasable {
     private BigDecimal price;
     private int inventory;
     private int purchases;
+    private static final int STARTING_INVENTORY = 5;
 
 
     public Item() {
-        inventory = 5;
+        inventory = STARTING_INVENTORY;
         purchases = 0;
     }
 
