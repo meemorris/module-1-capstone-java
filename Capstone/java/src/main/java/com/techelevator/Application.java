@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.view.Menu;
 import com.techelevator.view.MenuDrivenCLI;
 
 import java.util.Scanner;
