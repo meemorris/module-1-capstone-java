@@ -12,6 +12,7 @@ public class Menu {
 
     private PrintWriter out;
     private Scanner in;
+    public static final String HIDDEN_OPTION = "Hidden";
 
     public Menu(InputStream input, OutputStream output) {
         this.out = new PrintWriter(output);
@@ -46,17 +47,13 @@ public class Menu {
 
     private void displayMenuOptions(Object[] options) {
         out.println();
-        if (Arrays.equals(options, Application.getMainMenuOptions())) {
-            for (int i = 0; i < options.length - 1; i++) {
-                int optionNum = i + 1;
-                out.println(optionNum + ") " + options[i]);
-            }
-        } else {
             for (int i = 0; i < options.length; i++) {
-                int optionNum = i + 1;
-                out.println(optionNum + ") " + options[i]);
+                if (!options[i].equals(HIDDEN_OPTION)) {
+                    int optionNum = i + 1;
+                    out.println(optionNum + ") " + options[i]);
+                }
+
             }
-        }
         out.print("\nPlease choose an option >>> ");
         out.flush();
     }

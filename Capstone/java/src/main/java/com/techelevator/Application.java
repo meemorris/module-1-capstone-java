@@ -9,7 +9,7 @@ public class Application {
     private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
     private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
     private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-    private static final String MAIN_MENU_OPTION_SALES_REPORT = "";
+    private static final String MAIN_MENU_OPTION_SALES_REPORT = Menu.HIDDEN_OPTION; //static constant
     private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT, MAIN_MENU_OPTION_SALES_REPORT};
     private static final String PURCHASE_MENU_OPTION_DEPOSIT_MONEY = "Deposit Money";
     private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Product";
