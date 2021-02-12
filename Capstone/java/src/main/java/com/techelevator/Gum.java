@@ -1,6 +1,6 @@
-package com.techelevator.vending;
+package com.techelevator;
 
-public class Gum extends Item implements Purchasable {
+public class Gum extends Item implements Consumable {
 
     @Override
     public String printSound() {

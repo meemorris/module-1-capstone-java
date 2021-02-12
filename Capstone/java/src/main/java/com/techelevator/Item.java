@@ -1,18 +1,19 @@
-package com.techelevator.vending;
+package com.techelevator;
 
 import java.math.BigDecimal;
 
-public abstract class Item implements Purchasable {
+public abstract class Item implements Consumable {
 
     private String slotNumber;
     private String name;
     private BigDecimal price;
     private int inventory;
     private int purchases;
-
+    private static final int STARTING_INVENTORY = 5;
+    private VendingMachine vm = new VendingMachine("inventory.txt");
 
     public Item() {
-        inventory = 5;
+        inventory = STARTING_INVENTORY;
         purchases = 0;
     }
 
@@ -58,4 +59,18 @@ public abstract class Item implements Purchasable {
 
     @Override
     public abstract String printSound();
+
+    public void purchase(String input) {
+        String message = "";
+        Item item = vm.getAllItems().get(input);
+        vm.setCustomerBalance(vm.getCustomerBalance().subtract(item.price));//null pointer exception, item is showing up as null
+        setInventory(getInventory() - 1);
+        setPurchases(getPurchases() + 1);
+
+        vm.setTotalSales(vm.getTotalSales().add(item.price));
+        VmLog.log(" " + item.name + " " + item.slotNumber + " $" + item.price + " $" + vm.getCustomerBalance());
+        message = item.printSound();
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.techelevator.util;
+package com.techelevator;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;

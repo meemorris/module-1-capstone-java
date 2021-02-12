@@ -1,6 +1,4 @@
-package com.techelevator.vending;
-
-import com.techelevator.util.VmLog;
+package com.techelevator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,10 +9,10 @@ import java.util.*;
 
 public class VendingMachine {
 
-    private Map<String, Item> allItems = new LinkedHashMap<>();
-    private BigDecimal customerBalance = new BigDecimal(0);
+    public Map<String, Item> allItems = new LinkedHashMap<>();
+    private BigDecimal customerBalance = new BigDecimal("0.00");
     private String inventoryFile;
-    private BigDecimal totalSales = new BigDecimal(0);
+    private BigDecimal totalSales = new BigDecimal("0.00");
     private static DecimalFormat f = new DecimalFormat("#0.00");
 
     public VendingMachine(String inventoryFile) {
@@ -39,6 +37,14 @@ public class VendingMachine {
 
     public void setInventoryFile(String inventoryFile) {
         this.inventoryFile = inventoryFile;
+    }
+
+    public BigDecimal getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(BigDecimal totalSales) {
+        this.totalSales = totalSales;
     }
 
     public void loadInventory() {
@@ -87,7 +93,7 @@ public class VendingMachine {
     }
 
     public void depositMoney(String input) {
-        if (input.contains(".")) {
+        if (input.contains(".") || input.contains("-")) {
             throw new IllegalArgumentException();
         }
         BigDecimal money = new BigDecimal(input);
@@ -98,30 +104,28 @@ public class VendingMachine {
     public String purchaseItem(String input) {
         String message = "";
         Item item = allItems.get(input);
-        if (allItems.containsKey(input) && item.getPrice().compareTo(getCustomerBalance()) < 0 && item.getInventory() >= 1) {
-            setCustomerBalance(getCustomerBalance().subtract(item.getPrice()));
-            item.setInventory(item.getInventory() - 1);
-            item.setPurchases(item.getPurchases() + 1);
-            totalSales = totalSales.add(item.getPrice());
-            VmLog.log(" " + item.getName() + " " + item.getSlotNumber() + " $" + item.getPrice() + " $" + f.format(getCustomerBalance()));
-            message = item.printSound();
+        if (!allItems.containsKey(input)) {
+            message = "*** Item does not exist, please choose another ***";
+        } else if (allItems.containsKey(input) && item.getInventory() <= 0) {
+            message = "*** Item out of stock, please choose another ***";
         } else if (allItems.containsKey(input) && item.getPrice().compareTo(getCustomerBalance()) > 0) {
             message = "*** Not enough money, please deposit more ***";
-        } else if (allItems.containsKey(input) && item.getInventory() <= 0) {
-            message = "*** Item out of Stock, please choose another ***";
-        } else if (!allItems.containsKey(input)) {
-            message = "*** Item does not exist, please choose another ***";
+        } else {
+            item.purchase(input);
         }
-
         return message;
     }
 
     public String returnChange() {
+        String result = "";
+
+        if (getCustomerBalance().compareTo(BigDecimal.ZERO) > 0) {
+
         int dollars = 0;
         int quarters = 0;
         int dimes = 0;
         int nickels = 0;
-        BigDecimal convertingInt = new BigDecimal(100);
+        BigDecimal convertingInt = new BigDecimal("100");
         BigDecimal exp = getCustomerBalance().multiply(convertingInt);
         int balance = exp.intValue();
 
@@ -149,8 +153,10 @@ public class VendingMachine {
 
         setCustomerBalance(BigDecimal.ZERO);
         VmLog.log(" GIVE CHANGE: $" + displayChange + " $" + f.format(getCustomerBalance()));
-        return "Your change is:\n" + dollars + " dollar(s)" + "\n" + quarters + " quarter(s)" + "\n" +
+        result = "Your change is:\n" + dollars + " dollar(s)" + "\n" + quarters + " quarter(s)" + "\n" +
                 dimes + " dime(s)" + "\n" + nickels + " nickel(s)";
+        }
+        return result;
     }
 
 

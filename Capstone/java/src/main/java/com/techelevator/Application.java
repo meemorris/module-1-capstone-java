@@ -1,7 +1,5 @@
 package com.techelevator;
 
-import com.techelevator.vending.VendingMachine;
-import com.techelevator.util.VmLog;
 import com.techelevator.view.MenuDrivenCLI;
 
 import java.util.Scanner;
@@ -26,9 +24,6 @@ public class Application {
         return MAIN_MENU_OPTIONS;
     }
 
-    public static String[] getPurchaseMenuOptions() {
-        return PURCHASE_MENU_OPTIONS;
-    }
 
     public static void main(String[] args) {
         Application application = new Application();
@@ -57,7 +52,6 @@ public class Application {
         }
     }
 
-
     private void handlePurchaseMenu() {
         boolean running = true;
         while (running) {
@@ -80,8 +74,6 @@ public class Application {
 
             }
         }
-
-
     }
 
     private void handleDeposit() {
@@ -93,12 +85,9 @@ public class Application {
                 vm.depositMoney(money);
                 finished = true;
             } catch (IllegalArgumentException e) {
-                System.out.println("*** " + money + " is not a valid option. Please enter a whole number amount ***\n");
+                System.out.println("*** " + money + " is not a valid option. Please enter a positive whole number amount ***\n");
             }
-
         }
-
     }
-
 
 }
